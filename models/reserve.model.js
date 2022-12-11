@@ -22,15 +22,19 @@ module.exports = (sequelize, Sequelize) => {
         defaultValue:0,
       },
     day: {
-      type: Sequelize.ENUM("0", "1", "2","3","4","5"),
+      type: DataTypes.STRING,
     },
     reserve_code: {
-      type: DataTypes.STRING
-    }
+      type: DataTypes.BIGINT(20),
+      autoIncrement: true,
+    },
+    
   }, {
     // Other model options go here
     freezeTableName: true,
-    tableName: 'reserves'
+    tableName: 'reserves',
+    initialAutoIncrement:1000
   });
   return Reserve
+  
 }

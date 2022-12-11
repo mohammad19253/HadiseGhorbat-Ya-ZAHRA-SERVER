@@ -5,7 +5,8 @@ const db = require("./models/index");
 const port = parseInt(process.env.PORT, 10) || 4123
 const server = express()
 server.use(express.json());
-db.sequelize.sync({alter:true})
+//db.sequelize.sync({alter:true})
+db.sequelize.sync()
 .then(() => { console.log("Synced db.");})
 .catch((err) => { console.log("Failed to sync db: " + err.message);});
 
