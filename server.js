@@ -1,6 +1,7 @@
 
 
 const express = require('express')
+const cors = require('cors');
 const db = require("./models/index");
 const port = parseInt(process.env.PORT, 10) || 4123
 const server = express()
@@ -11,6 +12,10 @@ db.sequelize.sync()
 .catch((err) => { console.log("Failed to sync db: " + err.message);});
 
 //server.use('/user', require('./api/user'))
+server.use(cors({
+    //this should change to 181....
+    origin: 'http://localhost:3001'
+  }));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
 server.use('/otp', require('./api/otp'))    

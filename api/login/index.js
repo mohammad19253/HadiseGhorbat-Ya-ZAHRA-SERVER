@@ -16,22 +16,20 @@ router.post('/', (req, res)=>{
         code:Math.floor(100000 + Math.random() * 900000),
         _counter: db.sequelize.literal('_counter + 1') 
       };
-
       Otp.update(otp,{
         where: { phone_number: phoneNumber },
         returning: true,
-        plain: true
+        plain: true,
       }).then((num) => {
         const result = num[1]
         if (result._counter === 4) {
           res.send( { status:205, message:`برای تلاش مجدد با شماره ${phonenumber} یک دقیقه دیگر تلاش کنید`})
           //must delete the otp row
         } else {
-          res.send({message:'opt sent'}) 
+          res.send({message:'update otp',status:200,otp_id:result.otp_id}) 
         }
       })
       .catch(err => {
-        
         Otp.create(     
            {
             phone_number: phoneNumber,
@@ -40,7 +38,7 @@ router.post('/', (req, res)=>{
           }
         )
         .then(data => {
-          res.send(data);
+          res.send({message:'new otp',status:200,otp_id:data.otp_id}) 
         })
         .catch(err => {
           res.status(500).send({

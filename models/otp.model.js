@@ -13,8 +13,8 @@ module.exports = (sequelize, Sequelize) => {
       type: DataTypes.STRING,
     },
     _counter: {
-        type: DataTypes.INTEGER,
-        defaultValue: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
+        defaultValue: DataTypes.BIGINT,
         allowNull: false,
       },
     phone_number: {
