@@ -24,7 +24,7 @@ const corsOptions = {
 }
 server.use(cors({
     //this should change to 181....
-    origin:'*'
+    origin:'http://localhost:3000'
   }));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
