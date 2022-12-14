@@ -22,9 +22,20 @@ const corsOptions = {
     }
   }
 }
-server.use(cors({
-  origin: '*'
-}));
+const corsOpts = {
+  origin: '*',
+
+  methods: [
+    'GET',
+    'POST',
+  ],
+
+  allowedHeaders: [
+    'Content-Type',
+  ],
+};
+
+server.use(cors(corsOpts));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
 server.use('/otp', require('./api/otp'))    
