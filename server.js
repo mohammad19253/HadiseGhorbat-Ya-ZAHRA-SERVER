@@ -12,9 +12,19 @@ db.sequelize.sync()
 .catch((err) => { console.log("Failed to sync db: " + err.message);});
 
 //server.use('/user', require('./api/user'))
+const whitelist =['http://localhost:3001', 'http://localhost:3000' ,'http://185.181.182.171:3000','http://localhost:4123'] 
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error())
+    }
+  }
+}
 server.use(cors({
     //this should change to 181....
-    origin:['http://localhost:3001', 'http://localhost:3000' ,'http://185.181.182.171:3000','http://localhost:4123'] 
+    origin:'*'
   }));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
