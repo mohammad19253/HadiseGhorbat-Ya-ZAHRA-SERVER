@@ -10,9 +10,11 @@ router.post('/' ,(req, res)=>{
     let user ={exist:false,firstName:'',lastName:''}
     User.findAll({where:{phone_number:phoneNumber}}).then(data=>{
         if(data.length === 1){
-             user ={exist:true,firstName:data[0].first_name,lastName:data[0].last_name}
+             user ={exist:true,firstName:data[0].first_name,lastName:data[0].last_name, id:data[0].user_id}
         }else{
-             User.create({phone_number:phoneNumber})
+             User.create({phone_number:phoneNumber}).then((test=>{
+                user ={exist:false, id:test.user_id}
+             }))
         }   
     })
  

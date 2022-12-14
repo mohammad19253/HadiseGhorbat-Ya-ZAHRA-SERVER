@@ -6,6 +6,7 @@ const sequelize = new Sequelize('hadisGhorbat', 'postgres', 'postgres', {
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+ 
 db.users = require("./users.model")(sequelize, Sequelize);
 db.otp = require("./otp.model")(sequelize, Sequelize);
 db.reserves = require("./reserve.model")(sequelize, Sequelize);
