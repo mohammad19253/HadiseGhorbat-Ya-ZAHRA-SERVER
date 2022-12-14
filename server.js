@@ -23,11 +23,8 @@ const corsOptions = {
   }
 }
 server.use(cors({
-    //this should change to 181....
-    origin:['http://localhost:3000' ,'http://185.181.182.171:3000','http://185.181.182.171:80',
-    ,'http://185.181.182.171/', 'http://localhost:3001'
-  ] 
-  }));
+  origin: '*'
+}));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
 server.use('/otp', require('./api/otp'))    
