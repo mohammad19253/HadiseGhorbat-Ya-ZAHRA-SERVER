@@ -14,7 +14,7 @@ db.sequelize.sync()
 //server.use('/user', require('./api/user'))
 server.use(cors({
     //this should change to 181....
-    origin: 'http://localhost:3001'
+    origin:['http://localhost:3001', 'http://localhost:3000' ,'http://185.181.182.171:3000'] 
   }));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
