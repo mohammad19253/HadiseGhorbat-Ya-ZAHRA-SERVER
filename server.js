@@ -12,11 +12,9 @@ db.sequelize.sync()
 .catch((err) => { console.log("Failed to sync db: " + err.message);});
 
 //server.use('/user', require('./api/user'))
-const corsOpts = {
-  origin: '*',
-};
-
-server.use(cors(corsOpts));
+server.use(cors({
+  origin: '*'
+}));
 server.use('/reserve', require('./api/reserve')) 
 server.use('/login', require('./api/login'))    
 server.use('/otp', require('./api/otp'))    
