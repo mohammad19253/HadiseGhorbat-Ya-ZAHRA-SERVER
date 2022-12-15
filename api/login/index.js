@@ -60,13 +60,7 @@ router.post('/', (req, res)=>{
         }
       })
       .catch(err => {
-        Otp.create(     
-           {
-            phone_number: phoneNumber,
-            code:Math.floor(100000 + Math.random() * 900000),
-            _counter:1
-          }
-        )
+        Otp.create(   otp   )
         .then(data => {
           const req = https.request(options, res => {
             console.log('statusCode: ' + res.statusCode);
