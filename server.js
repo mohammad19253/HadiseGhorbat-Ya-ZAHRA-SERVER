@@ -3,7 +3,7 @@
 const express = require('express')
 const cors = require('cors');
 const db = require("./models/index");
-const port = parseInt(process.env.PORT, 10) || 4123
+const port = parseInt(process.env.PORT, 10) || 6003
 const server = express()
 server.use(express.json());
 //db.sequelize.sync({alter:true})
