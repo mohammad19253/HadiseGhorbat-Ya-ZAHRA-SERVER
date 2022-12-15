@@ -9,6 +9,7 @@ router.post('/' ,(req, res)=>{
     const { phoneNumber , otp ,id } = req.body
  
     Otp.findAll({where:{otp_id:id}}).then((data=>{
+        
         if( data[0]?.code === otp ){
             //correct otp
             User.findAll({where:{phone_number:phoneNumber}}).then(data=>{

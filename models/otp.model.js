@@ -12,10 +12,9 @@ module.exports = (sequelize, Sequelize) => {
     code: {
       type: DataTypes.STRING,
     },
-    _counter: {
-        type: DataTypes.BIGINT,
-        defaultValue: DataTypes.BIGINT,
-        allowNull: false,
+    valid_counter: {
+      type: DataTypes.BIGINT(20),
+      autoIncrement: true,
       },
     phone_number: {
       type: DataTypes.STRING

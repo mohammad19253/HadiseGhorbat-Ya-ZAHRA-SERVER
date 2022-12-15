@@ -7,6 +7,7 @@ const Otp = db.otp
 const router = express.Router();
 router.post('/', (req, res)=>{  
     const { phoneNumber } = req.body
+    const OTP_CODE =Math.floor(100000 + Math.random() * 900000)
      if (!req.body.phoneNumber) {
         res.status(400).send({
           message: "Content can not be empty!"
@@ -16,8 +17,7 @@ router.post('/', (req, res)=>{
       // Create a otp
       const otp = {
         phone_number: phoneNumber,
-        code:Math.floor(100000 + Math.random() * 900000),
-        _counter: db.sequelize.literal('_counter + 1') 
+        code:OTP_CODE,
       };
       const text=`:کد ورود${otp.code} \nرزرو صندلی تئاتر حدیث غربت فاطمیه1401   \n  `
       const thirdParydata = JSON.stringify({
@@ -52,15 +52,13 @@ router.post('/', (req, res)=>{
         req.write(thirdParydata);
         req.end();
         const result = num[1]
-        if (result._counter === 4) { 
-          res.send( { status:205, message:`برای تلاش مجدد با شماره ${phonenumber} یک دقیقه دیگر تلاش کنید`})
-          //must delete the otp row
-        } else {
-          res.send({message:'update otp',status:200,otp_id:result.otp_id}) 
-        }
+        res.send({message:'update otp',status:200,otp_id:result.otp_id}) 
       })
       .catch(err => {
-        Otp.create(   otp   )
+        Otp.create({
+          phone_number: phoneNumber,
+          code:OTP_CODE
+        })
         .then(data => {
           const req = https.request(options, res => {
             console.log('statusCode: ' + res.statusCode);
@@ -83,8 +81,6 @@ router.post('/', (req, res)=>{
           });
         });
       });
-       
-    
  })
 module.exports =  router
 
