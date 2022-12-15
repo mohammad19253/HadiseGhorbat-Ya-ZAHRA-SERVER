@@ -4,10 +4,10 @@ const { Sequelize } = require('sequelize');
 //   host: 'localhost',
 //   dialect:'postgres'
 // });
-  const sequelize = new Sequelize('Hadis_ghorbat', 'postgres', 'H@JMerfan*(110)*', {
-    host: 'localhost',
-    dialect:'postgres'
-  });
+const sequelize = new Sequelize('Hadis_ghorbat', 'postgres', 'H@JMerfan*(110)*', {
+  host: 'localhost',
+  dialect:'postgres'
+});
   
 const db = {};
 db.Sequelize = Sequelize;

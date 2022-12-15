@@ -8,7 +8,7 @@ const router = express.Router();
 router.post('/' ,(req, res)=>{  
     const { phoneNumber , otp ,id } = req.body
  
-    Otp.findAll({where:{phone_number:phoneNumber}}).then((data=>{
+    Otp.findAll({where:{otp_id:id}}).then((data=>{
         if( data[0]?.code === otp ){
             //correct otp
             User.findAll({where:{phone_number:phoneNumber}}).then(data=>{
@@ -25,9 +25,11 @@ router.post('/' ,(req, res)=>{
                 }   
             })
         }else{
+            const user ={exist:false, id:''}
             res.send({ status:210, message:'کد وارد شده اشتباه میباشد',data:user})
         }
     })).catch(err=>{
+        const user ={exist:false, id:''}
         res.send({status:205,message:'لطفا دوباره تلاش کنید',data:user})
     })
 })

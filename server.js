@@ -14,15 +14,6 @@ db.sequelize.sync()
 //server.use('/user', require('./api/user'))
 const corsOpts = {
   origin: '*',
-
-  methods: [
-    'GET',
-    'POST',
-  ],
-
-  allowedHeaders: [
-    'Content-Type',
-  ],
 };
 
 server.use(cors(corsOpts));
