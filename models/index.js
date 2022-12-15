@@ -1,9 +1,14 @@
 const { Sequelize } = require('sequelize');
 //
-const sequelize = new Sequelize('Hadis_ghorbat', 'postgres', 'H@JMerfan*(110)*', {
-    host: 'localhost',
-    dialect:'postgres'
-  });
+const sequelize = new Sequelize('hadisGhorbat', 'postgres', 'postgres', {
+  host: 'localhost',
+  dialect:'postgres'
+});
+  // const sequelize = new Sequelize('Hadis_ghorbat', 'postgres', 'postgres', {
+  //   host: 'localhost',
+  //   dialect:'postgres'
+  // });
+  
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
@@ -28,15 +33,3 @@ module.exports = db;
 
 
 
-
-
-
-// const client = new Client( {
-//     user:'postgres',
-//     password: 'postgres',
-//     host:'localhost',
-//     port:5432,
-//     database:'hadisGhorbat'
-// })
-// client.connect().then(()=>{console.log('success')})
-// module.exports = client;

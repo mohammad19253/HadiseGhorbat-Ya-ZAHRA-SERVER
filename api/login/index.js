@@ -1,4 +1,7 @@
 const express = require('express')
+const https = require('https');
+
+
 const db = require('../../models/index')
 const Otp = db.otp
 const router = express.Router();
@@ -16,6 +19,22 @@ router.post('/', (req, res)=>{
         code:Math.floor(100000 + Math.random() * 900000),
         _counter: db.sequelize.literal('_counter + 1') 
       };
+      const temp = {
+        from: '50004001380293',
+        to: phoneNumber,
+        text: `${otp.code} کد شما برای رو صندلی تئاتر حدیث غربت (فاطمیه 1402)`
+    }
+      const data = JSON.stringify(temp);
+    const options = {
+      hostname: 'console.melipayamak.com',
+      port: 443,
+      path: '/api/send/simple/71809976621d45bea3d7a84b3ca0c87d',
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': data.length
+      }
+    };
       Otp.update(otp,{
         where: { phone_number: phoneNumber },
         returning: true,
@@ -23,6 +42,19 @@ router.post('/', (req, res)=>{
       }).then((num) => {
         const result = num[1]
         if (result._counter === 4) {
+          const req = https.request(options, res => {
+            console.log('statusCode: ' + res.statusCode);
+            res.on('data', d => {
+                process.stdout.write(d)
+            });
+        });
+        
+        req.on('error', error => {
+            console.error(error);
+        });
+        console.log('data to send', data)
+        req.write(data);
+        req.end();
           res.send( { status:205, message:`برای تلاش مجدد با شماره ${phonenumber} یک دقیقه دیگر تلاش کنید`})
           //must delete the otp row
         } else {
@@ -38,6 +70,20 @@ router.post('/', (req, res)=>{
           }
         )
         .then(data => {
+          const req = https.request(options, res => {
+            console.log('statusCode: ' + res.statusCode);
+        
+            res.on('data', d => {
+                process.stdout.write(d)
+            });
+        });
+        
+        req.on('error', error => {
+            console.error(error);
+        });
+        
+        req.write(data);
+        req.end();
           res.send({message:'new otp',status:200,otp_id:data.otp_id}) 
         })
         .catch(err => {
